@@ -1,19 +1,19 @@
 import { Container } from "react-bootstrap"
 import React from 'react'
-import { useEffect } from "react";
-import {GetObjectCommand, S3} from "@aws-sdk/client-s3";
+// import { useEffect } from "react";
+// import {GetObjectCommand, S3} from "@aws-sdk/client-s3";
 
 
 export default function Home(){
-    const s3Client = new S3.S3Client({
-        region: "ap-southeast-2"
-      });
+    // const s3Client = new S3.S3Client({
+    //     region: "ap-southeast-2"
+    //   });
 
-    useEffect(() =>{
+    // useEffect(() =>{
         
 
-        console.log(s3Client.send(new GetObjectCommand({Bucket:'image-bucket-mac', Key: 'text.txt'})))
-    })
+    //     console.log(s3Client.send(new GetObjectCommand({Bucket:'image-bucket-mac', Key: 'text.txt'})))
+    // })
 
 
     return (
