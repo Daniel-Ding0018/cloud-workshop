@@ -46,7 +46,7 @@ export default function Home(){
         const imageblob =  URL.createObjectURL(
           new Blob([uintarray], { type: 'image/png' } /* (1) */)
         );
-        return (<div className="p-2"><Image alt="no" src={imageblob} width={170} height={180}></Image></div>)
+        return imageblob
         // imageReturn.append("hi");    
         // setImage(<></>)
 
@@ -56,21 +56,31 @@ export default function Home(){
     }
 
           // GetObject
-      const  mainGet = (bucketContents) => {
+      const  mainGet = async (bucketContents) => {
         // Loop thru each object that we want to display
-        bucketContents.forEach(async (bucketKey) =>{
-          setImage(await getObject(bucketKey))
+        let bucketBlobs = [];
+        bucketContents.forEach((bucketKey) =>{
+        //   setImage(await getObject(bucketKey))
+          bucketBlobs.push(getObject(bucketKey))
         }) 
+
+        bucketBlobs = await Promise.all(bucketBlobs)
+
+        return bucketBlobs
+
+        
         // Make the JSX
         // console.log(imageBlobHolder)
         // setImage(      <div className="p-2"><Image src={imageBlobHolder[0]}></Image></div>        )
 
         };
 
+
     useEffect(()=>{
       async function fetchData(){
         const bucketKeys = await getListObjects();
-        console.log(await mainGet(bucketKeys))
+        let bucketImages = await mainGet(bucketKeys)
+        setImage(bucketImages.map(bucketImage => <Image src={bucketImage} width={200} height={200}></Image>))
       }fetchData()
     }, [])
 
@@ -89,7 +99,7 @@ export default function Home(){
       </style>
         <Container>
             <h1>Your Photos</h1>
-            <Stack gap={3}>
+            <Stack gap={3} direction="horizontal">
               {image}
             </Stack>
         </Container>
