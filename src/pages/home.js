@@ -29,7 +29,7 @@ export default function Home() {
       const { Contents } = await client.send(command);
 
       return Contents.filter(
-        (c) => c.Key.substring(c.Key.length - 3) === "jpg",
+        (c) => c.Key.substring(c.Key.length - 3) === "jpg" || c.Key.substring(c.Key.length - 3) === "png",
       );
     } catch (err) {
       console.error(err);
