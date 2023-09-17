@@ -5,7 +5,7 @@ import { GetObjectCommand, S3Client, ListObjectsCommand } from "@aws-sdk/client-
 
 export default function Home(){
 
-    const [image, setImage] = useState()
+    const [image, setImage] = useState(<p>Loading...</p>)
 
     const CREDENTIAL = {
         accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
@@ -66,21 +66,15 @@ export default function Home(){
 
         bucketBlobs = await Promise.all(bucketBlobs)
 
-        return bucketBlobs
-
-        
-        // Make the JSX
-        // console.log(imageBlobHolder)
-        // setImage(      <div className="p-2"><Image src={imageBlobHolder[0]}></Image></div>        )
-
+        return bucketBlobs;
         };
 
 
     useEffect(()=>{
       async function fetchData(){
-        const bucketKeys = await getListObjects();
-        let bucketImages = await mainGet(bucketKeys)
-        setImage(bucketImages.map(bucketImage => <Image src={bucketImage} width={200} height={200}></Image>))
+        // const bucketKeys = await getListObjects();
+        // let bucketImages = await mainGet(bucketKeys)
+        // setImage(bucketImages.map((bucketImage, index) => <Image src={bucketImage} width={200} height={200}></Image>))
       }fetchData()
     }, [])
 
@@ -99,9 +93,7 @@ export default function Home(){
       </style>
         <Container>
             <h1>Your Photos</h1>
-            <Stack gap={3} direction="horizontal">
-              {image}
-            </Stack>
+            {image}
         </Container>
       </>
         
