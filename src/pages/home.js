@@ -27,7 +27,7 @@ export default function Home() {
 
     try {
       const { Contents } = await client.send(command);
-
+      console.log(Contents);
       return Contents.filter(
         (c) => c.Key.substring(c.Key.length - 3) === "jpg" || c.Key.substring(c.Key.length - 3) === "png",
       );
